@@ -37,11 +37,11 @@ def main():
     parser.add_argument("ms", metavar="ms", type=str, nargs="+",
                         help="specify one or more measurement sets to flag")
     parser.add_argument("-m", "--mask", type=str, required=True,
-                        help="a numpy array of shape [channels] containing a boolean"
+                        help="a numpy array of shape [channels] containing a boolean "
                              "per channel")
     parser.add_argument("--accumulation_mode", type=str,
                         choices=["or", "override"], default="or",
-                        help="specifies whether mask should override current flags or be"
+                        help="specifies whether mask should override current flags or be "
                              "added (or) to the current")
 
     parser.add_argument("-s", "--statistics", action='store_true',
