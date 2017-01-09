@@ -12,7 +12,7 @@ python setup.py develop --user
 docker build -t rfi_masker (inside cloned folder)
 docker run -it --rm rfi_masker (anywhere)
 ```
-## Install (if you're yet to discover the pure awesomesomness of Docker)
+## Install (if you're yet to discover the pure awesomeness of Docker)
 ```
 python setup.py install --user
 (assumes .local/bin is in your PATH and .local/lib/python2.7/site-packages is in your PYTHONPATH)
