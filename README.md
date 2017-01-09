@@ -1,6 +1,4 @@
 # RFI Masker
-Tiny tool to apply a numpy boolean array to the spectral flags column of a measurement set to mask out known RFI sources like GSM and satelite in L-band. Typically flagging known RFI sources produces much better backgrounds and tools like the mighty AOFlagger RFI hammer needs fewer iterations to converge to good solutions.
-
     Copyright (C) 2016  SKA South Africa
 
     This program is free software: you can redistribute it and/or modify
@@ -12,6 +10,8 @@ Tiny tool to apply a numpy boolean array to the spectral flags column of a measu
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
+
+Tiny tool to apply a numpy boolean array to the spectral flags column of a measurement set to mask out known RFI sources like GSM and satelite in L-band. Typically flagging known RFI sources produces much better backgrounds and tools like the mighty AOFlagger RFI hammer needs fewer iterations to converge to good solutions.
 
 # To develop
 ```
