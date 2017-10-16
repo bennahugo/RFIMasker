@@ -26,6 +26,7 @@ import logging
 import sys
 import re
 from RFIMasker import version
+from scipy.ndimage.morphology import binary_dilation
 
 pckgdir = os.path.dirname(os.path.abspath(__file__))
 
@@ -51,6 +52,10 @@ def main():
                              "added (or) to the current")
     parser.add_argument("--spwid", nargs="+", type=int, default=[0],
                         help="SPW id (or ids if multiple MSs have been specified")
+    parser.add_argument("--dilate", type=str, default=None,
+                        help="Dilate mask. This will extend masked regions by this width."
+                             "The width can be specified as a frequency band (e.g 0.2MHz),"
+                             "or as the the number of channels (20) to dilate by.")
 
     def _casa_style_range(val):
         """ returns None or tupple with lower and upper bound """
@@ -84,6 +89,29 @@ def main():
     log.info("Mask %s (%d chan) loaded successfully" % (args.mask, len(mask)))
     mask_chans = mask["chans"][1]
     mask_flags = mask["mask"][0]
+    # Dilate mask
+    if args.dilate:
+        try:
+            dilate_width = int(args.dilate)
+        except ValueError:
+            value,units = re.match(r"([\d.]+)([a-zA-Z]+)", args.dilate, re.I).groups()
+            if units == 'GHz':
+                value = float(value)*1e9
+            elif units == 'MHz':
+                value = float(value)*1e6
+            elif units == 'kHz':
+                value = float(value)*1e3
+            elif units == 'Hz':
+                value = float(value)
+            else:
+                raise RuntimeError('Unrecognised units for --dilate value::  %s'%units)
+        
+            chan_width = mask_chans[1] - mask_chans[0]
+            dilate_width  = int(value/chan_width) + 1 
+        log.info('Dilating mask. Will Flag %d channels on either side of every masked region'%(dilate_width))
+        dstruct = np.array([True,True,True])
+        mask_flags = binary_dilation(mask_flags, dstruct, iterations=dilate_width)
+
     masked_channels = mask_chans[np.argwhere(mask_flags)]
     log.info("Mask contains %d masked channels (%.2f %%)" % (len(masked_channels), len(masked_channels)*100.0/float(len(mask_flags))))
 
