@@ -1,13 +1,8 @@
-FROM radioastro/base
+FROM kernsuite/base:2
 MAINTAINER bhugo@ska.ac.za
 
-RUN apt-get update
-RUN apt-get install -y software-properties-common
-RUN add-apt-repository -y -s ppa:radio-astro/main
-RUN apt-get update
+RUN docker-apt-install python-casacore python-pip
 
-RUN apt-get install -y python-casacore
-RUN apt-get install -y python-pip
 RUN pip install pip -U
 
 ADD RFIMasker /src/RFIMasker/RFIMasker
