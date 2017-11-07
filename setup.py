@@ -51,10 +51,6 @@ def readme():
     with open(os.path.join(build_root, 'README.md')) as f:
         return f.read()
 
-def requirements():
-    with open(os.path.join(build_root, 'requirements.txt')) as f:
-        return [pname.strip() for pname in f.readlines()]
-
 def src_pkg_dirs(pkg_name):
     mbdir = os.path.join(build_root, pkg_name)
     # Ignore
@@ -81,11 +77,11 @@ setup(name=pkg,
       version=get_version(),
       description='Tool to apply rfi masks to measurement sets',
       long_description=readme(),
-      url='',
+      url='https://github.com/bennahugo/RFIMasker',
       classifiers=[
         "Development Status :: 3 - Alpha",
-        "Intended Audience :: Developers",
-        "License :: GNU GPL v2",
+        "Intended Audience :: Science/Research",
+        "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Topic :: Software Development :: Libraries :: Python Modules",
@@ -94,7 +90,11 @@ setup(name=pkg,
       author_email='bhugo@ska.ac.za',
       license='GNU GPL v2',
       packages=[pkg],
-      install_requires=requirements(),
+      install_requires=[
+          "numpy==1.13.3",
+          "scipy==1.0.0",
+          "python-casacore==2.1.2"
+      ],
       package_data={pkg: src_pkg_dirs(pkg)},
       include_package_data=True,
       zip_safe=False,
