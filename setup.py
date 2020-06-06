@@ -45,7 +45,7 @@ def get_version():
     with open(version_py, 'w') as fh:
         fh.write(version_msg + os.linesep + "__version__=\"" + version_git.decode() +"\"")
 
-    return version_git
+    return version_git.decode()
 
 def readme():
     with open(os.path.join(build_root, 'README.md')) as f:
