@@ -64,7 +64,7 @@ def main():
         if val == "":
             return None
         elif re.match(r"^(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?~(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?$", val):
-            return map(float,val.split("~"))
+            return list(map(float,val.split("~")))
         else:
             raise argparse.ArgumentError("Value must be range or blank")
 
@@ -171,7 +171,7 @@ def main():
         nchunk = int(np.ceil(t.nrows() / float(nrows_to_read)))
         preflags_sum = 0
         postflags_sum = 0
-        for chunk_i in xrange(nchunk):
+        for chunk_i in range(nchunk):
             log.info("\tFlagging chunk %d / %d" % (chunk_i + 1, nchunk))
             nrows_chunk = min(t.nrows() - (chunk_i * nrows_to_read),
                           nrows_to_read)
