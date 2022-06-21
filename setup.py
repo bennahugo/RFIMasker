@@ -91,7 +91,7 @@ setup(name=pkg,
       license='GNU GPL v2',
       packages=[pkg],
       install_requires=[
-          "numpy==1.13.3",
+          "numpy==1.22.0",
           "scipy==1.0.0",
           "python-casacore==2.1.2"
       ],
